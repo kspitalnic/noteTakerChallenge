@@ -14,7 +14,7 @@ app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`)
 });
 
-const { notes } = require('./data/notes');
+const { notes } = require('./db/db');
 
 function filterByQuery(query, notesArray) {
     let filteredResults = notesArray;
@@ -36,7 +36,7 @@ function createNewNote(body, notesArray) {
     const note = body;
     notesArray.push(note);
     fs.writeFileSync(
-        path.join(__dirname, './data/notes.json'),
+        path.join(__dirname, './db/db.json'),
         JSON.stringify({ notes: notesArray }, null, 2)
     );
     return note;
