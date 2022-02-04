@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3001;
 const app = express()
 
 //parse incoming string or array data 
-app.use(express.urlencoded({extetnded:true}));
+app.use(express.urlencoded({ extetnded: false }));
 //parse incoming JSON data
 app.use(express.json());
 
@@ -33,17 +33,25 @@ function findByTitle(title, notesArray) {
     return result;
 }
 
-function createNewNote(body, notesArray){
+function createNewNote(body, notesArray) {
     const note = body;
     clientArray.push(note);
     fs.writeFileSync(
-      path.join(__dirname, './data/notes.json'),
-      JSON.stringify({ notes: notesArray }, null, 2)
+        path.join(__dirname, './data/notes.json'),
+        JSON.stringify({ notes: notesArray }, null, 2)
     );
     return note;
+}
+
+function validateNote(note) {
+    if (!note.title || typeof note.title !== 'string') {
+      return false;
+    }
+    if (!note.content || typeof note.content !== 'string') {
+      return false;
+    }
+    return true;
   }
-
-
 
 
 app.get('/api/notes', (req, res) => {
@@ -68,12 +76,12 @@ app.post('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     console.log(req.body);
     //set id based on what the next index of the array will be 
-    req.body.id=notes.length.toString()
+    req.body.id = notes.length.toString()
 
-    // if(!validateClient(req.body)){
-    //   res.status(400).send('The client is not propperly formatted');
-    //   } else { 
-    //     const client = createNewClient(req.body, clients)
-    //     res.json(req.body);
-    //   }
-  });
+    if (!validateNote(req.body)) {
+        res.status(400).send('The note is not propperly formatted');
+    } else {
+        const note = createNewNote(req.body, notes)
+        res.json(req.body);
+    }
+});
