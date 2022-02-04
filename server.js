@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3001;
 const app = express()
 
 //parse incoming string or array data 
-app.use(express.urlencoded({ extetnded: false }));
+app.use(express.urlencoded({ extended: true }));
 //parse incoming JSON data
 app.use(express.json());
 
@@ -15,7 +15,6 @@ app.listen(PORT, () => {
 });
 
 const { notes } = require('./data/notes');
-
 
 function filterByQuery(query, notesArray) {
     let filteredResults = notesArray;
@@ -66,12 +65,6 @@ app.get('/api/notes/:title', (req, res) => {
     const result = findByTitle(req.params.title, notes);
     res.json(result);
 });
-
-app.post('/api/notes', (req, res) => {
-    console.log(req.body);
-    //set id based on what the next index of the array will be 
-    req.body.id = notes.length.toString()
-})
 
 app.post('/api/notes', (req, res) => {
     console.log(req.body);
