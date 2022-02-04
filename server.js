@@ -19,10 +19,10 @@ const { notes } = require('./data/notes');
 function filterByQuery(query, notesArray) {
     let filteredResults = notesArray;
     if (query.title) {
-        filteredResults = filteredResults.filter(note => note.title === query.name);
+        filteredResults = filteredResults.filter(note => note.title === query.title);
     }
     if (query.content) {
-        filteredResults = filteredResults.filter(note => note.content === query.program);
+        filteredResults = filteredResults.filter(note => note.content === query.content);
     }
     return filteredResults;
 }
@@ -34,7 +34,7 @@ function findByTitle(title, notesArray) {
 
 function createNewNote(body, notesArray) {
     const note = body;
-    clientArray.push(note);
+    notesArray.push(note);
     fs.writeFileSync(
         path.join(__dirname, './data/notes.json'),
         JSON.stringify({ notes: notesArray }, null, 2)

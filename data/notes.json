@@ -1,9 +1,14 @@
 {
-    "notes": [
-      {
-        "title": "Note Title",
-        "note": "Enter your note here", 
-        "id": "0"
-      }
-    ]
+  "notes": [
+    {
+      "title": "Note Title",
+      "content": "Enter your note here",
+      "id": "0"
+    },
+    {
+      "title": "note practice",
+      "content": "does this post work?",
+      "id": "1"
+    }
+  ]
 }
