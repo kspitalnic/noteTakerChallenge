@@ -17,21 +17,6 @@ app.listen(PORT, () => {
 
 const { notes } = require('./db/db');
 
-function filterByQuery(query, notesArray) {
-    let filteredResults = notesArray;
-    if (query.title) {
-        filteredResults = filteredResults.filter(note => note.title === query.title);
-    }
-    if (query.text) {
-        filteredResults = filteredResults.filter(note => note.text === query.content);
-    }
-    return filteredResults;
-}
-
-function findByTitle(title, notesArray) {
-    const result = notesArray.filter(note => note.title === title)[0];
-    return result;
-}
 
 function createNewNote(body, notesArray) {
     const note = body;
@@ -45,27 +30,14 @@ function createNewNote(body, notesArray) {
 
 function validateNote(note) {
     if (!note.title || typeof note.title !== 'string') {
-      return false;
+        return false;
     }
     if (!note.content || typeof note.content !== 'string') {
-      return false;
+        return false;
     }
     return true;
-  }
+}
 
-
-app.get('/api/notes', (req, res) => {
-    let results = notes;
-    if (req.query) {
-        results = filterByQuery(req.query, notes);
-    }
-    res.json(results);
-});
-
-app.get('/api/notes/:title', (req, res) => {
-    const result = findByTitle(req.params.title, notes);
-    res.json(result);
-});
 
 app.post('/api/notes', (req, res) => {
     console.log(req.body);
@@ -73,7 +45,7 @@ app.post('/api/notes', (req, res) => {
     req.body.id = notes.length.toString()
 
     if (!validateNote(req.body)) {
-        res.status(400).send('The note is not propperly formatted');
+        res.status(400).send('The note does not have the required minimul content');
     } else {
         const note = createNewNote(req.body, notes)
         res.json(req.body);
@@ -82,10 +54,14 @@ app.post('/api/notes', (req, res) => {
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
-  });
+});
 
-  app.get('/notes', (req, res) => {
+//Wildcard route 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
-  });
+});
 
-  
