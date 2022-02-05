@@ -9,6 +9,7 @@ const app = express()
 app.use(express.urlencoded({ extended: true }));
 //parse incoming JSON data
 app.use(express.json());
+app.use(express.static('public'));
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`)
@@ -21,8 +22,8 @@ function filterByQuery(query, notesArray) {
     if (query.title) {
         filteredResults = filteredResults.filter(note => note.title === query.title);
     }
-    if (query.content) {
-        filteredResults = filteredResults.filter(note => note.content === query.content);
+    if (query.text) {
+        filteredResults = filteredResults.filter(note => note.text === query.content);
     }
     return filteredResults;
 }
@@ -78,3 +79,13 @@ app.post('/api/notes', (req, res) => {
         res.json(req.body);
     }
 });
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+  });
+
+  app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+  });
+
+  
