@@ -34,12 +34,15 @@ class Notes {
         .then(() => newNote);
     }
 
-    deleteNote(note){
+    // deleteNote(note){
+    //     return this.addNote()
+    //     .then((notes, id) => notes.filter({id} === id)
+    //     .then((remainingNotes) => this.write(remainingNotes))
+    //     )
 
-    }
+    // }
 }
 
-//delete - return note want to delete w id .filter
 
 
 // function createNewNote(body, notesArray) {

@@ -1,22 +1,7 @@
 [
   {
-    "title": "note practice",
-    "text": "does this post work?",
+    "title": "Notes Title",
+    "text": "Note Content",
     "id": "1"
-  },
-  {
-    "title": "lkjdf",
-    "text": "sdfsd",
-    "id": "70561f74-fca2-4271-a79a-d16b5a01b901"
-  },
-  {
-    "title": "new note ",
-    "text": "new note\n",
-    "id": "82315dbb-e961-48e5-9313-e65a64e37faa"
-  },
-  {
-    "title": "new note",
-    "text": "json",
-    "id": "df067ed2-7ad4-44e4-acc4-67da4b991308"
   }
 ]

@@ -1,3 +1,4 @@
+const { deleteNote } = require('../db/notes');
 const notes = require('../db/notes');
 const router = require('express').Router();
 
@@ -14,6 +15,11 @@ router.post('/notes', (req, res) => {
         return res.json(note);
     }).catch((err) => res.status(400).json(err))
 })
+
+// router.delete('/notes/:id', (req, res) => {
+
+//     deleteNote(id)
+// })
 
 
 
